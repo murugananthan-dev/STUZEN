@@ -67,3 +67,4 @@ export const brandConfig = {
 };
 
 export default brandConfig;
+

@@ -29,3 +29,4 @@ export const DISCOVERY_STAGES = [
 export default {
   DISCOVERY_STAGES
 };
+

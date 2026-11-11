@@ -20,3 +20,4 @@ try {
 } catch (e) {
   // Silent fallback if postinstall fails in non-msvc environments
 }
+

@@ -48,3 +48,4 @@ export function removeStoredItem(key) {
     // Ignore error
   }
 }
+

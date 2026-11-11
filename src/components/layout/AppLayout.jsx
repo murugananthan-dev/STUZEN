@@ -30,3 +30,4 @@ export function AppLayout({ children }) {
 }
 
 export default AppLayout;
+

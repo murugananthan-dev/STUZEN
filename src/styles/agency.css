@@ -1,0 +1,746 @@
+/**
+ * STUZEN TECHNOLOGIES - Agency Landing Page Styles
+ * Styles for Hero, Service Pillars, 10-Stage Discovery Roadmap,
+ * 4-Step Process, Value Propositions, and Final Call-To-Action.
+ */
+
+/* ==========================================================================
+   Section Layout Shared Utilities
+   ========================================================================== */
+.agency-section {
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-16);
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .agency-section {
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-20);
+  }
+}
+
+.section-header {
+  margin-bottom: var(--space-12);
+}
+
+.section-header.centered {
+  text-align: center;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-size: var(--font-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 3vw + 1rem, var(--font-4xl));
+  margin-bottom: var(--space-4);
+  line-height: var(--line-height-tight);
+}
+
+.section-subtitle {
+  font-size: var(--font-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  max-width: 680px;
+}
+
+.section-header.centered .section-subtitle {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ==========================================================================
+   1. Hero Section
+   ========================================================================== */
+.hero-wrapper {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 80% 20%, rgba(2, 132, 199, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 10% 80%, rgba(10, 37, 64, 0.04) 0%, transparent 40%),
+              linear-gradient(180deg, #ffffff 0%, var(--color-bg-main) 100%);
+  border-bottom: 1px solid var(--color-border);
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-20);
+}
+
+@media (min-width: 1024px) {
+  .hero-wrapper {
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-24);
+  }
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--space-16);
+  }
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-eyebrow {
+  margin-bottom: var(--space-4);
+}
+
+.hero-headline {
+  font-size: clamp(2.25rem, 4.5vw + 1rem, 3.5rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--color-brand-primary);
+  margin-bottom: var(--space-5);
+}
+
+.hero-headline .highlight {
+  color: var(--color-brand-secondary);
+  position: relative;
+  display: inline-block;
+}
+
+.hero-paragraph {
+  font-size: clamp(1rem, 1vw + 0.8rem, var(--font-lg));
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin-bottom: var(--space-6);
+}
+
+.hero-tagline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.375rem 0.875rem;
+  background-color: rgba(10, 37, 64, 0.04);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--font-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-primary);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-8);
+  width: fit-content;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .hero-actions {
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+  }
+}
+
+/* Abstract Tech Visual Widget */
+.hero-visual-card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  padding: var(--space-6);
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  .hero-visual-card {
+    padding: var(--space-8);
+  }
+}
+
+.hero-visual-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.hero-visual-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.hero-visual-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+}
+
+.hero-visual-dot.red { background-color: #ef4444; }
+.hero-visual-dot.yellow { background-color: #f59e0b; }
+.hero-visual-dot.green { background-color: #10b981; }
+
+.hero-visual-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-brand-secondary);
+}
+
+.hero-visual-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-brand-secondary);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.hero-visual-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.hero-visual-pillar-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.hero-visual-pillar-item:hover {
+  background-color: #ffffff;
+  border-color: var(--color-border-hover);
+  transform: translateX(3px);
+}
+
+.hero-visual-pillar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.hero-visual-pillar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-brand-accent-light);
+  color: var(--color-brand-secondary);
+}
+
+.hero-visual-pillar-name {
+  font-size: var(--font-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-primary);
+}
+
+.hero-visual-pillar-tag {
+  font-size: 0.7rem;
+  font-weight: var(--font-weight-semibold);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-full);
+  background-color: rgba(10, 37, 64, 0.08);
+  color: var(--color-brand-primary);
+  text-transform: uppercase;
+}
+
+.hero-visual-footer-note {
+  font-size: var(--font-xs);
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* ==========================================================================
+   2. Three Core Service Pillars
+   ========================================================================== */
+.agency-services {
+  background-color: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+
+@media (min-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-main);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  position: relative;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-brand-secondary);
+  box-shadow: var(--shadow-lg);
+  background-color: #ffffff;
+}
+
+.service-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+}
+
+.service-card-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-brand-accent-light);
+  color: var(--color-brand-secondary);
+  transition: all var(--transition-fast);
+}
+
+.service-card:hover .service-card-icon-box {
+  background-color: var(--color-brand-secondary);
+  color: #ffffff;
+}
+
+.service-card-number {
+  font-size: var(--font-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-subtle);
+  font-family: var(--font-family-mono);
+  letter-spacing: -0.05em;
+  opacity: 0.6;
+}
+
+.service-card-pillar-label {
+  font-size: var(--font-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-brand-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.service-card-title {
+  font-size: var(--font-xl);
+  color: var(--color-brand-primary);
+  margin-bottom: var(--space-3);
+  line-height: var(--line-height-snug);
+}
+
+.service-card-desc {
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-6);
+}
+
+.service-card-capabilities-heading {
+  font-size: var(--font-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.service-capabilities-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+  flex-grow: 1;
+}
+
+.service-capability-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+}
+
+.service-capability-icon {
+  color: var(--color-brand-secondary);
+  flex-shrink: 0;
+}
+
+.service-card-action {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.service-card-btn {
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* ==========================================================================
+   3. 10-Stage Discovery Process Roadmap
+   ========================================================================== */
+.discovery-roadmap-section {
+  background-color: var(--color-bg-main);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-12);
+}
+
+@media (min-width: 768px) {
+  .roadmap-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+.roadmap-card {
+  display: flex;
+  gap: var(--space-4);
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.roadmap-card:hover {
+  border-color: var(--color-brand-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.roadmap-card-number-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background-color: rgba(10, 37, 64, 0.05);
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-sm);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.roadmap-card:hover .roadmap-card-number-badge {
+  background-color: var(--color-brand-secondary);
+  color: #ffffff;
+}
+
+.roadmap-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.roadmap-card-title {
+  font-size: var(--font-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand-primary);
+  margin-bottom: var(--space-1);
+}
+
+.roadmap-card-desc {
+  font-size: var(--font-xs);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+}
+
+.roadmap-cta-banner {
+  background: linear-gradient(135deg, var(--color-brand-primary) 0%, #0d365f 100%);
+  color: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .roadmap-cta-banner {
+    flex-direction: row;
+    text-align: left;
+    padding: var(--space-10) var(--space-12);
+  }
+}
+
+.roadmap-cta-text h3 {
+  color: #ffffff;
+  font-size: var(--font-xl);
+  margin-bottom: var(--space-2);
+}
+
+.roadmap-cta-text p {
+  color: #cbd5e1;
+  font-size: var(--font-sm);
+  margin: 0;
+  max-width: 540px;
+}
+
+/* ==========================================================================
+   4. How We Work (4-Step Process)
+   ========================================================================== */
+.how-we-work-section {
+  background-color: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.process-steps-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .process-steps-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .process-steps-row {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+.process-step-item {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-main);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.process-step-item:hover {
+  background-color: #ffffff;
+  border-color: var(--color-brand-accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.process-step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.process-step-num {
+  font-size: var(--font-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand-accent);
+  letter-spacing: 0.1em;
+}
+
+.process-step-icon {
+  color: var(--color-brand-secondary);
+}
+
+.process-step-title {
+  font-size: var(--font-lg);
+  color: var(--color-brand-primary);
+  margin-bottom: var(--space-2);
+}
+
+.process-step-desc {
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+}
+
+/* ==========================================================================
+   5. Why Choose STUZEN TECHNOLOGIES
+   ========================================================================== */
+.why-stuzen-section {
+  background-color: var(--color-bg-main);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.why-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.why-card:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.why-card-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-brand-accent-light);
+  color: var(--color-brand-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.why-card-title {
+  font-size: var(--font-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand-primary);
+  margin-bottom: var(--space-2);
+}
+
+.why-card-desc {
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+}
+
+/* ==========================================================================
+   6. Final Call-To-Action Section
+   ========================================================================== */
+.final-cta-section {
+  background: linear-gradient(135deg, #07111e 0%, #0a2540 60%, #081d33 100%);
+  color: #ffffff;
+  padding-top: var(--space-20);
+  padding-bottom: var(--space-20);
+  position: relative;
+  overflow: hidden;
+}
+
+.final-cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.25) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.final-cta-container {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.final-cta-headline {
+  color: #ffffff;
+  font-size: clamp(2rem, 3.5vw + 1rem, var(--font-4xl));
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-4);
+}
+
+.final-cta-description {
+  color: #cbd5e1;
+  font-size: var(--font-lg);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-8);
+}
+
+.final-cta-button-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-6);
+}
+
+.final-cta-tagline {
+  font-size: var(--font-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-brand-accent);
+}
