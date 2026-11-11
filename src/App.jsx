@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavigationProvider, useNavigation, VIEWS } from './context/NavigationContext';
+import { DiscoveryProvider } from './context/DiscoveryContext';
 import AppLayout from './components/layout/AppLayout';
 import AgencyHomeView from './pages/AgencyHomeView';
 import DiscoveryWizardView from './pages/DiscoveryWizardView';
@@ -29,15 +30,16 @@ function AppContent() {
 
 /**
  * Root Application Component
- * Wraps the app with the lightweight NavigationProvider.
+ * Wraps the app with NavigationProvider and DiscoveryProvider.
  */
 export function App() {
   return (
     <NavigationProvider>
-      <AppContent />
+      <DiscoveryProvider>
+        <AppContent />
+      </DiscoveryProvider>
     </NavigationProvider>
   );
 }
 
 export default App;
-
