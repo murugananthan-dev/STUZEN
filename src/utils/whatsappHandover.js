@@ -135,3 +135,4 @@ export default {
   generateWhatsAppMessage,
   getWhatsAppShareUrl
 };
+

@@ -124,7 +124,6 @@ button:disabled, .btn:disabled {
   background-color: var(--color-brand-secondary-hover);
   color: #ffffff;
   box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
 }
 
 .btn-secondary {

@@ -212,12 +212,7 @@
   height: 6px;
   border-radius: var(--radius-full);
   background-color: var(--color-brand-secondary);
-  animation: pulseDot 2s infinite ease-in-out;
-}
-
-@keyframes pulseDot {
-  0%, 100% { opacity: 0.4; transform: scale(0.9); }
-  50% { opacity: 1; transform: scale(1.2); }
+  opacity: 0.85;
 }
 
 .hero-visual-pillars {
@@ -241,7 +236,6 @@
 .hero-visual-pillar-item:hover {
   background-color: #ffffff;
   border-color: var(--color-border-hover);
-  transform: translateX(3px);
 }
 
 .hero-visual-pillar-left {
@@ -320,9 +314,8 @@
 }
 
 .service-card:hover {
-  transform: translateY(-4px);
   border-color: var(--color-brand-secondary);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
   background-color: #ffffff;
 }
 
@@ -462,7 +455,6 @@
 
 .roadmap-card:hover {
   border-color: var(--color-brand-secondary);
-  transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
@@ -584,7 +576,6 @@
   background-color: #ffffff;
   border-color: var(--color-brand-accent);
   box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
 }
 
 .process-step-header {
@@ -656,7 +647,6 @@
 .why-card:hover {
   border-color: var(--color-border-hover);
   box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
 }
 
 .why-card-icon-wrap {
