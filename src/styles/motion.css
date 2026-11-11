@@ -1,0 +1,78 @@
+/**
+ * STUZEN TECHNOLOGIES - Premium Motion System
+ * Purposeful, restrained animations for a premium tech consultancy feel.
+ */
+
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --duration-hero: 650ms;
+  --duration-reveal: 500ms;
+  --stagger-base: 60ms;
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.hero-anim-eyebrow  { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 80ms  forwards; }
+.hero-anim-headline { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 220ms forwards; }
+.hero-anim-para     { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 360ms forwards; }
+.hero-anim-tagline  { opacity: 0; animation: heroFadeIn var(--duration-hero) var(--ease-out-expo) 460ms forwards; }
+.hero-anim-cta      { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 540ms forwards; }
+.hero-anim-visual   { opacity: 0; animation: heroFadeIn 800ms var(--ease-out-expo) 360ms forwards; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--duration-reveal) var(--ease-out-expo),
+              transform var(--duration-reveal) var(--ease-out-expo);
+}
+.reveal.is-revealed { opacity: 1; transform: translateY(0); }
+
+.reveal-fade { opacity: 0; transition: opacity var(--duration-reveal) var(--ease-out-expo); }
+.reveal-fade.is-revealed { opacity: 1; }
+
+.reveal-section-header {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 550ms var(--ease-out-expo), transform 550ms var(--ease-out-expo);
+}
+.reveal-section-header.is-revealed { opacity: 1; transform: translateY(0); }
+
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--duration-reveal) var(--ease-out-expo),
+              transform var(--duration-reveal) var(--ease-out-expo);
+}
+.stagger-children.is-revealed > * { opacity: 1; transform: translateY(0); }
+
+.stagger-children.is-revealed > *:nth-child(1)  { transition-delay: 0ms;   }
+.stagger-children.is-revealed > *:nth-child(2)  { transition-delay: 70ms;  }
+.stagger-children.is-revealed > *:nth-child(3)  { transition-delay: 140ms; }
+.stagger-children.is-revealed > *:nth-child(4)  { transition-delay: 210ms; }
+.stagger-children.is-revealed > *:nth-child(5)  { transition-delay: 280ms; }
+.stagger-children.is-revealed > *:nth-child(6)  { transition-delay: 350ms; }
+.stagger-children.is-revealed > *:nth-child(7)  { transition-delay: 420ms; }
+.stagger-children.is-revealed > *:nth-child(8)  { transition-delay: 490ms; }
+.stagger-children.is-revealed > *:nth-child(9)  { transition-delay: 560ms; }
+.stagger-children.is-revealed > *:nth-child(10) { transition-delay: 630ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-fade, .reveal-section-header,
+  .stagger-children > *,
+  .hero-anim-eyebrow, .hero-anim-headline, .hero-anim-para,
+  .hero-anim-tagline, .hero-anim-cta, .hero-anim-visual {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}

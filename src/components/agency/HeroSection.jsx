@@ -25,26 +25,26 @@ export function HeroSection() {
         <div className="hero-grid">
           {/* Left Column: Core Value Proposition & Conversion CTAs */}
           <div className="hero-content">
-            <div className="hero-eyebrow">
+            <div className="hero-eyebrow hero-anim-eyebrow">
               <span className="badge badge-brand">
                 <Sparkles size={13} aria-hidden="true" />
                 DIGITAL SOLUTIONS FOR AMBITIOUS BUSINESSES
               </span>
             </div>
 
-            <h1 id="hero-main-heading" className="hero-headline">
+            <h1 id="hero-main-heading" className="hero-headline hero-anim-headline">
               Build Your Digital Future With <span className="highlight">Stuzen Technologies.</span>
             </h1>
 
-            <p className="hero-paragraph">
+            <p className="hero-paragraph hero-anim-para">
               From professional websites and custom software to intelligent AI-powered automation, we help businesses turn ideas into practical digital solutions.
             </p>
 
-            <div className="hero-tagline-badge">
+            <div className="hero-tagline-badge hero-anim-tagline">
               <span>{brandConfig.tagline}</span>
             </div>
 
-            <div className="hero-actions">
+            <div className="hero-actions hero-anim-cta">
               <button
                 type="button"
                 className="btn btn-primary btn-lg"
@@ -68,7 +68,7 @@ export function HeroSection() {
           </div>
 
           {/* Right Column: Abstract Technology Architecture Visual */}
-          <div className="hero-visual" aria-hidden="true">
+          <div className="hero-visual hero-anim-visual" aria-hidden="true">
             <div className="hero-visual-card">
               <div className="hero-visual-header">
                 <div className="hero-visual-dots">

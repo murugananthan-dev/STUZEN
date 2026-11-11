@@ -1,11 +1,15 @@
 import React from 'react';
 import { Search, Compass, Cpu, LifeBuoy } from 'lucide-react';
+import { useScrollReveal } from '../../hooks/useScrollReveal';
 
 /**
  * ProcessSection Component ("How We Work")
  * High-level 4-step delivery philosophy: Discover, Define, Design & Develop, Deliver & Support.
  */
 export function ProcessSection() {
+  const headerRef = useScrollReveal();
+  const stepsRef = useScrollReveal({ threshold: 0.1 });
+
   const steps = [
     {
       step: '01',
@@ -37,7 +41,7 @@ export function ProcessSection() {
     <section id="how-we-work" className="agency-section how-we-work-section" aria-labelledby="process-heading">
       <div className="container">
         {/* Section Header */}
-        <div className="section-header centered">
+        <div className="section-header centered reveal-section-header" ref={headerRef}>
           <span className="section-kicker badge badge-navy">
             Delivery Lifecycle
           </span>
@@ -50,7 +54,7 @@ export function ProcessSection() {
         </div>
 
         {/* 4 Process Steps Row */}
-        <div className="process-steps-row">
+        <div className="process-steps-row stagger-children" ref={stepsRef}>
           {steps.map((item) => {
             const Icon = item.icon;
             return (

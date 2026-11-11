@@ -52,7 +52,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-brand-primary);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
 h1 { font-size: clamp(2rem, 4vw + 1rem, var(--font-5xl)); }
@@ -159,9 +159,10 @@ button:disabled, .btn:disabled {
 }
 
 .btn-lg {
-  padding: 0.875rem 1.75rem;
+  padding: 0.875rem 2rem;
   font-size: var(--font-base);
   border-radius: var(--radius-lg);
+  letter-spacing: -0.01em;
 }
 
 .btn-sm {

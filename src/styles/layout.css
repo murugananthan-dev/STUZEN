@@ -61,11 +61,11 @@
   top: 0;
   z-index: 100;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
-  transition: all var(--transition-normal);
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
 }
 
 .navbar-container {
@@ -91,8 +91,8 @@
   font-size: var(--font-lg);
   font-weight: var(--font-weight-bold);
   color: var(--color-brand-primary);
-  letter-spacing: -0.01em;
-  line-height: 1.1;
+  letter-spacing: -0.025em;
+  line-height: 1;
 }
 
 .navbar-brand-tagline {

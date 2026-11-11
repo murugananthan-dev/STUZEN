@@ -7,6 +7,7 @@ import './styles/variables.css';
 import './styles/global.css';
 import './styles/layout.css';
 import './styles/agency.css';
+import './styles/motion.css';
 import './styles/discoveryWizard.css';
 import './styles/print.css';
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Monitor, Code2, Bot, Check, ArrowRight } from 'lucide-react';
 import { useNavigation } from '../../context/NavigationContext';
+import { useScrollReveal } from '../../hooks/useScrollReveal';
 
 /**
  * ServicesSection Component
@@ -8,6 +9,8 @@ import { useNavigation } from '../../context/NavigationContext';
  */
 export function ServicesSection() {
   const { navigateTo, VIEWS } = useNavigation();
+  const headerRef = useScrollReveal();
+  const gridRef = useScrollReveal({ threshold: 0.08 });
 
   const services = [
     {
@@ -67,7 +70,7 @@ export function ServicesSection() {
     <section id="services" className="agency-section agency-services" aria-labelledby="services-heading">
       <div className="container">
         {/* Section Header */}
-        <div className="section-header centered">
+        <div className="section-header centered reveal-section-header" ref={headerRef}>
           <span className="section-kicker badge badge-navy">
             Core Service Pillars
           </span>
@@ -80,7 +83,7 @@ export function ServicesSection() {
         </div>
 
         {/* 3 Pillars Grid */}
-        <div className="services-grid">
+        <div className="services-grid stagger-children" ref={gridRef}>
           {services.map((service) => {
             const Icon = service.icon;
             return (

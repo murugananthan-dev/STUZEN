@@ -1,6 +1,7 @@
 import React from 'react';
 import { Compass, ArrowRight, UserCheck, Target, Layout, Palette, Settings, MessageSquare, Server, BarChart3, Clock, CheckSquare } from 'lucide-react';
 import { useNavigation } from '../../context/NavigationContext';
+import { useScrollReveal } from '../../hooks/useScrollReveal';
 
 /**
  * DiscoveryRoadmap Component
@@ -8,6 +9,9 @@ import { useNavigation } from '../../context/NavigationContext';
  */
 export function DiscoveryRoadmap() {
   const { navigateTo, VIEWS } = useNavigation();
+  const headerRef = useScrollReveal();
+  const gridRef = useScrollReveal({ threshold: 0.06 });
+  const ctaRef = useScrollReveal({ threshold: 0.2 });
 
   const stages = [
     {
@@ -76,7 +80,7 @@ export function DiscoveryRoadmap() {
     <section id="discovery-process" className="agency-section discovery-roadmap-section" aria-labelledby="roadmap-heading">
       <div className="container">
         {/* Section Header */}
-        <div className="section-header centered">
+        <div className="section-header centered reveal-section-header" ref={headerRef}>
           <span className="section-kicker badge badge-brand">
             <Compass size={13} aria-hidden="true" />
             Discovery Framework
@@ -90,7 +94,7 @@ export function DiscoveryRoadmap() {
         </div>
 
         {/* 10 Stages Grid */}
-        <div className="roadmap-grid">
+        <div className="roadmap-grid stagger-children" ref={gridRef}>
           {stages.map((stage) => {
             const Icon = stage.icon;
             return (
@@ -111,7 +115,7 @@ export function DiscoveryRoadmap() {
         </div>
 
         {/* Call to Action Banner after Roadmap */}
-        <div className="roadmap-cta-banner">
+        <div className="roadmap-cta-banner reveal" ref={ctaRef}>
           <div className="roadmap-cta-text">
             <h3>Ready to walk through this 10-stage process?</h3>
             <p>

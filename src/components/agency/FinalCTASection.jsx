@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { useNavigation } from '../../context/NavigationContext';
+import { useScrollReveal } from '../../hooks/useScrollReveal';
 import brandConfig from '../../config/brandConfig';
 
 /**
@@ -10,11 +11,12 @@ import brandConfig from '../../config/brandConfig';
  */
 export function FinalCTASection() {
   const { navigateTo, VIEWS } = useNavigation();
+  const ctaRef = useScrollReveal({ threshold: 0.15 });
 
   return (
     <section id="contact-cta" className="agency-section final-cta-section" aria-labelledby="cta-heading">
       <div className="container">
-        <div className="final-cta-container">
+        <div className="final-cta-container reveal-fade" ref={ctaRef}>
           <div style={{ marginBottom: 'var(--space-4)' }}>
             <span
               className="badge"

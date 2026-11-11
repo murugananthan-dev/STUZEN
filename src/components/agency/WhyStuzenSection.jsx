@@ -1,11 +1,15 @@
 import React from 'react';
 import { Briefcase, Layers, Compass, Wrench, Smartphone, FileCheck, ShieldCheck } from 'lucide-react';
+import { useScrollReveal } from '../../hooks/useScrollReveal';
 
 /**
  * WhyStuzenSection Component
  * Authentic, grounded value propositions highlighting engineering discipline and clarity.
  */
 export function WhyStuzenSection() {
+  const headerRef = useScrollReveal();
+  const gridRef = useScrollReveal({ threshold: 0.08 });
+
   const points = [
     {
       title: 'Business-first thinking.',
@@ -48,7 +52,7 @@ export function WhyStuzenSection() {
     <section id="why-stuzen" className="agency-section why-stuzen-section" aria-labelledby="why-heading">
       <div className="container">
         {/* Section Header */}
-        <div className="section-header centered">
+        <div className="section-header centered reveal-section-header" ref={headerRef}>
           <span className="section-kicker badge badge-brand">
             Agency Philosophy
           </span>
@@ -61,7 +65,7 @@ export function WhyStuzenSection() {
         </div>
 
         {/* Value Proposition Cards Grid */}
-        <div className="why-grid">
+        <div className="why-grid stagger-children" ref={gridRef}>
           {points.map((item, idx) => {
             const Icon = item.icon;
             return (
