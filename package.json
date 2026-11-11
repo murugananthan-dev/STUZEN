@@ -1,0 +1,25 @@
+{
+  "name": "stuzen-technologies",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "postinstall": "node scripts/use-wasm-rollup.cjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.475.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@rollup/wasm-node": "^4.68.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.14"
+  },
+  "overrides": {
+    "rollup": "npm:@rollup/wasm-node@^4.34.8"
+  }
+}
