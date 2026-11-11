@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ArrowLeft, FileText, Layers, Lock } from 'lucide-react';
+import { ArrowLeft, FileText, Layers, CheckCircle2 } from 'lucide-react';
 import { useNavigation } from '../context/NavigationContext';
 import { SECTIONS, QUESTIONS } from '../data/questionnaireSchema';
 import DiscoveryWizardHeader from '../components/discovery/DiscoveryWizardHeader';
@@ -7,26 +7,53 @@ import MeetingMetadataBar from '../components/discovery/MeetingMetadataBar';
 import DiscoverySectionNavigation from '../components/discovery/DiscoverySectionNavigation';
 import DiscoveryQuestionRenderer from '../components/discovery/DiscoveryQuestionRenderer';
 import WizardNavigation from '../components/discovery/WizardNavigation';
+import DiscoveryMaterialsChecklist from '../components/discovery/DiscoveryMaterialsChecklist';
+import InternalProjectSummary from '../components/discovery/InternalProjectSummary';
+import DiscoveryAcknowledgement from '../components/discovery/DiscoveryAcknowledgement';
+import LiveScopeEstimator from '../components/discovery/LiveScopeEstimator';
+
+// Complete linear step order across all questionnaire sections and review modules
+const STEP_SEQUENCE = [
+  'section_01',
+  'section_02',
+  'section_03',
+  'section_04',
+  'section_05',
+  'section_06',
+  'section_07',
+  'section_08',
+  'section_09',
+  'section_10',
+  'materials',
+  'summary',
+  'signatures',
+  'estimator'
+];
 
 /**
- * DiscoveryWizardView (Phase 4)
- * Interactive Discovery Wizard — Part 1.
- * Provides meeting metadata management and interactive forms for
- * Questionnaire Sections 01–05 (Q01 to Q25).
- * Previews upcoming Sections 06–10 for Phase 5.
+ * DiscoveryWizardView (Phase 5)
+ * Complete Interactive Discovery Wizard supporting:
+ * - Meeting Metadata
+ * - All 10 Questionnaire Sections (Q01 to Q45)
+ * - Client Materials Checklist
+ * - Internal Project Summary (A–F) with Auto-Generation
+ * - Discovery Acknowledgement & Signatures
+ * - Live Scope Complexity Estimator
  */
 export function DiscoveryWizardView() {
   const { navigateTo, VIEWS } = useNavigation();
-  const [activeSectionId, setActiveSectionId] = useState('section_01');
+  const [activeStepId, setActiveStepId] = useState('section_01');
   const sectionContentRef = useRef(null);
 
-  // Implemented sections in Phase 4: Sections 01 to 05 (indices 0 to 4)
-  const implementedSections = SECTIONS.slice(0, 5);
-  const activeSectionIndex = implementedSections.findIndex((s) => s.id === activeSectionId);
-  const currentSection = implementedSections[activeSectionIndex] || implementedSections[0];
+  const activeIndex = STEP_SEQUENCE.indexOf(activeStepId);
+  const isQuestionnaireSection = activeStepId.startsWith('section_');
+  const currentSection = isQuestionnaireSection
+    ? SECTIONS.find((s) => s.id === activeStepId) || SECTIONS[0]
+    : null;
 
-  // Questions for the current active section (Q1 to Q25)
-  const activeQuestions = QUESTIONS.filter((q) => q.sectionId === currentSection.id);
+  const activeQuestions = isQuestionnaireSection
+    ? QUESTIONS.filter((q) => q.sectionId === currentSection.id)
+    : [];
 
   const scrollToContentTop = () => {
     if (sectionContentRef.current) {
@@ -34,28 +61,103 @@ export function DiscoveryWizardView() {
     }
   };
 
-  const handleSelectSection = (sectionId) => {
-    const targetIdx = implementedSections.findIndex((s) => s.id === sectionId);
-    if (targetIdx !== -1) {
-      setActiveSectionId(sectionId);
+  const handleSelectStep = (stepId) => {
+    if (STEP_SEQUENCE.includes(stepId)) {
+      setActiveStepId(stepId);
       scrollToContentTop();
     }
   };
 
-  const handlePreviousSection = () => {
-    if (activeSectionIndex > 0) {
-      const prevSection = implementedSections[activeSectionIndex - 1];
-      setActiveSectionId(prevSection.id);
+  const handlePrevious = () => {
+    if (activeIndex > 0) {
+      setActiveStepId(STEP_SEQUENCE[activeIndex - 1]);
       scrollToContentTop();
     }
   };
 
-  const handleNextSection = () => {
-    if (activeSectionIndex < implementedSections.length - 1) {
-      const nextSection = implementedSections[activeSectionIndex + 1];
-      setActiveSectionId(nextSection.id);
+  const handleNext = () => {
+    if (activeIndex < STEP_SEQUENCE.length - 1) {
+      setActiveStepId(STEP_SEQUENCE[activeIndex + 1]);
       scrollToContentTop();
+    } else {
+      // Completed last step (Scope Estimator) -> offer preview print view
+      navigateTo(VIEWS.PRINT);
     }
+  };
+
+  // Determine dynamic button labels based on current step
+  const getPrevLabel = () => {
+    if (activeIndex === 0) return 'Previous Section';
+    const prevId = STEP_SEQUENCE[activeIndex - 1];
+    if (prevId.startsWith('section_')) {
+      const sec = SECTIONS.find((s) => s.id === prevId);
+      return `Back to Sec ${sec?.number || ''}`;
+    }
+    if (prevId === 'materials') return 'Back to Materials';
+    if (prevId === 'summary') return 'Back to Summary';
+    if (prevId === 'signatures') return 'Back to Signatures';
+    return 'Previous';
+  };
+
+  const getNextLabel = () => {
+    if (activeIndex === STEP_SEQUENCE.length - 1) {
+      return 'Preview Formal Document';
+    }
+    const nextId = STEP_SEQUENCE[activeIndex + 1];
+    if (nextId.startsWith('section_')) {
+      const sec = SECTIONS.find((s) => s.id === nextId);
+      return `Next: Sec ${sec?.number || ''}`;
+    }
+    if (nextId === 'materials') return 'Next: Materials Checklist';
+    if (nextId === 'summary') return 'Next: Internal Summary (A–F)';
+    if (nextId === 'signatures') return 'Next: Signatures & Record';
+    if (nextId === 'estimator') return 'Next: Live Scope Estimator';
+    return 'Next Section';
+  };
+
+  // Render active step content
+  const renderActiveStepContent = () => {
+    if (activeStepId === 'materials') {
+      return <DiscoveryMaterialsChecklist />;
+    }
+    if (activeStepId === 'summary') {
+      return <InternalProjectSummary />;
+    }
+    if (activeStepId === 'signatures') {
+      return <DiscoveryAcknowledgement />;
+    }
+    if (activeStepId === 'estimator') {
+      return <LiveScopeEstimator />;
+    }
+
+    // Default: Questionnaire Section (Sections 01 to 10)
+    return (
+      <>
+        {/* Section Overview Header */}
+        <header className="section-intro-card">
+          <div className="section-intro-badge">
+            <span className="badge badge-navy">
+              <Layers size={12} aria-hidden="true" />
+              SECTION {currentSection.number}
+            </span>
+            <span style={{ fontSize: 'var(--font-xs)', color: 'var(--color-text-muted)' }}>
+              {activeQuestions.length} Questions
+            </span>
+          </div>
+          <h2 id="active-section-heading" className="section-intro-title">
+            {currentSection.title}
+          </h2>
+          <p className="section-intro-desc">{currentSection.description}</p>
+        </header>
+
+        {/* Questions List for Current Section */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+          {activeQuestions.map((question) => (
+            <DiscoveryQuestionRenderer key={question.id} question={question} />
+          ))}
+        </div>
+      </>
+    );
   };
 
   return (
@@ -104,42 +206,22 @@ export function DiscoveryWizardView() {
         <div className="wizard-main-layout" ref={sectionContentRef}>
           {/* Section Roadmap Navigation */}
           <DiscoverySectionNavigation
-            activeSectionId={activeSectionId}
-            onSelectSection={handleSelectSection}
+            activeSectionId={activeStepId}
+            onSelectSection={handleSelectStep}
           />
 
-          {/* Active Section Question Content */}
+          {/* Active Step Panel */}
           <main className="active-section-panel" aria-labelledby="active-section-heading">
-            {/* Section Overview Header */}
-            <header className="section-intro-card">
-              <div className="section-intro-badge">
-                <span className="badge badge-navy">
-                  <Layers size={12} aria-hidden="true" />
-                  SECTION {currentSection.number}
-                </span>
-                <span style={{ fontSize: 'var(--font-xs)', color: 'var(--color-text-muted)' }}>
-                  {activeQuestions.length} Questions
-                </span>
-              </div>
-              <h2 id="active-section-heading" className="section-intro-title">
-                {currentSection.title}
-              </h2>
-              <p className="section-intro-desc">{currentSection.description}</p>
-            </header>
-
-            {/* Questions List for Current Section */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-              {activeQuestions.map((question) => (
-                <DiscoveryQuestionRenderer key={question.id} question={question} />
-              ))}
-            </div>
+            {renderActiveStepContent()}
 
             {/* Bottom Section Controls: Previous, Next, and Autosave Status */}
             <WizardNavigation
-              activeSectionIndex={activeSectionIndex}
-              totalImplemented={implementedSections.length}
-              onPrevious={handlePreviousSection}
-              onNext={handleNextSection}
+              onPrevious={handlePrevious}
+              onNext={handleNext}
+              canPrevious={activeIndex > 0}
+              canNext={true}
+              prevLabel={getPrevLabel()}
+              nextLabel={getNextLabel()}
             />
           </main>
         </div>

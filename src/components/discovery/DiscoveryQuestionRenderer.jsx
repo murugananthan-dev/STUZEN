@@ -216,6 +216,28 @@ export function DiscoveryQuestionRenderer({ question }) {
     // Dynamic grid columns depending on options count
     const gridColsClass = question.options.length > 8 ? 'two-cols' : 'one-col';
 
+    const handleOptionToggle = (opt) => {
+      // Special exclusive handling for WhatsApp Q26: "Not required"
+      if (question.id === 'q26_whatsapp_actions') {
+        if (opt === 'Not required') {
+          if (selectedList.includes('Not required')) {
+            updateAnswer(question.id, []);
+          } else {
+            updateAnswer(question.id, ['Not required']);
+          }
+          return;
+        } else {
+          // If selecting another option, clear 'Not required' if present
+          if (selectedList.includes('Not required')) {
+            updateAnswer(question.id, [opt]);
+            return;
+          }
+        }
+      }
+
+      toggleMultiSelect(question.id, opt);
+    };
+
     return (
       <div className="question-card">
         {renderQuestionHeader()}
@@ -237,14 +259,14 @@ export function DiscoveryQuestionRenderer({ question }) {
               <div
                 key={opt}
                 className={`choice-item-card ${isSelected ? 'selected' : ''}`}
-                onClick={() => toggleMultiSelect(question.id, opt)}
+                onClick={() => handleOptionToggle(opt)}
                 role="checkbox"
                 aria-checked={isSelected}
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === ' ' || e.key === 'Enter') {
                     e.preventDefault();
-                    toggleMultiSelect(question.id, opt);
+                    handleOptionToggle(opt);
                   }
                 }}
               >
@@ -299,3 +321,4 @@ export function DiscoveryQuestionRenderer({ question }) {
 }
 
 export default DiscoveryQuestionRenderer;
+

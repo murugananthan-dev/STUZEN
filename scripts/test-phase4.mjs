@@ -52,3 +52,4 @@ if (!q22.hasOther || !q22.otherKey) throw new Error('Q22 missing hasOther config
 console.log('✓ All conditional and other fields properly defined.');
 
 console.log('=== ALL PHASE 4 VERIFICATIONS PASSED ===');
+

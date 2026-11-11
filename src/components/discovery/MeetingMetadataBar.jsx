@@ -93,3 +93,4 @@ export function MeetingMetadataBar() {
 }
 
 export default MeetingMetadataBar;
+
