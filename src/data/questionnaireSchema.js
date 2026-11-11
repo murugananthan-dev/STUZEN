@@ -8,6 +8,9 @@ export const SCHEMA_VERSION = '1.0.0';
 export const STORAGE_KEY = 'stuzen_discovery_v1';
 
 // Exact Legal & Formal Brand Copy Constants
+export const INSTRUCTION_BANNER_TEXT =
+  "HOW TO USE THIS FORM: Use this questionnaire during the first client meeting or discovery call. Ask the questions naturally, tick the relevant options and record the client's answers. Not every feature is needed for every project. Confirm the final scope, quotation and delivery schedule separately before development starts.";
+
 export const ACKNOWLEDGEMENT_TEXT =
   'This form records the initial requirements discussed. It is not a final contract or fixed quotation. Final deliverables, revisions, payment terms, delivery dates, third-party fees, hosting, licences, support and exclusions must be documented and approved separately.';
 

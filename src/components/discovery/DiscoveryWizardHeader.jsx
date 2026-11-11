@@ -1,6 +1,7 @@
 import React from 'react';
-import { Compass, Sparkles, RefreshCw, FileCheck } from 'lucide-react';
+import { Compass, Sparkles, RefreshCw, Printer } from 'lucide-react';
 import { useDiscovery } from '../../context/DiscoveryContext';
+import { useNavigation } from '../../context/NavigationContext';
 
 /**
  * DiscoveryWizardHeader Component
@@ -9,6 +10,7 @@ import { useDiscovery } from '../../context/DiscoveryContext';
  */
 export function DiscoveryWizardHeader() {
   const { completion, loadDemoData, resetDiscovery } = useDiscovery();
+  const { navigateTo, VIEWS } = useNavigation();
 
   const handleLoadDemo = () => {
     const confirmed = window.confirm(
@@ -57,6 +59,17 @@ export function DiscoveryWizardHeader() {
           >
             <Sparkles size={14} color="var(--color-brand-secondary)" aria-hidden="true" />
             <span>Load Sample Client Data</span>
+          </button>
+
+          <button
+            type="button"
+            className="btn btn-secondary btn-sm"
+            onClick={() => navigateTo(VIEWS.PRINT)}
+            aria-label="View Formal Printable Document"
+            title="Switch to formal black-and-white printable document"
+          >
+            <Printer size={14} aria-hidden="true" />
+            <span>Formal Document</span>
           </button>
 
           <button

@@ -83,3 +83,4 @@ export function DiscoveryMaterialsChecklist() {
 }
 
 export default DiscoveryMaterialsChecklist;
+
