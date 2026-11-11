@@ -1122,3 +1122,4 @@ export function formatExportData(state) {
     signatures: { ...state.signatures }
   };
 }
+
