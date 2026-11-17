@@ -1,75 +1,178 @@
 /**
- * STUZEN TECHNOLOGIES - Premium Motion System
- * Purposeful, restrained animations for a premium tech consultancy feel.
+ * STUZEN TECHNOLOGIES - Restrained Enterprise Motion System
+ * Purposeful, subtle animations engineered for an elite digital consultancy.
+ * 
+ * CORE VISIBILITY GUARANTEE:
+ * Content is ALWAYS 100% visible by default in base CSS.
+ * Progressive enhancement is applied only when JavaScript is confirmed active.
  */
 
 :root {
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --duration-hero: 650ms;
-  --duration-reveal: 500ms;
-  --stagger-base: 60ms;
+  --duration-hero: 500ms;
+  --duration-reveal: 380ms;
+  --duration-tab: 180ms;
 }
 
+/* ==========================================================================
+   1. HERO INITIAL ENTRANCE (Runs once on page mount with restrained 10px drift)
+   ========================================================================== */
+
 @keyframes heroFadeUp {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes heroFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.hero-anim-eyebrow  { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 80ms  forwards; }
-.hero-anim-headline { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 220ms forwards; }
-.hero-anim-para     { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 360ms forwards; }
-.hero-anim-tagline  { opacity: 0; animation: heroFadeIn var(--duration-hero) var(--ease-out-expo) 460ms forwards; }
-.hero-anim-cta      { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 540ms forwards; }
-.hero-anim-visual   { opacity: 0; animation: heroFadeIn 800ms var(--ease-out-expo) 360ms forwards; }
+.hero-anim-eyebrow  { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 50ms  forwards; }
+.hero-anim-headline { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 120ms forwards; }
+.hero-anim-para     { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 200ms forwards; }
+.hero-anim-tagline  { opacity: 0; animation: heroFadeIn var(--duration-hero) var(--ease-out-expo) 260ms forwards; }
+.hero-anim-cta      { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 300ms forwards; }
+.hero-anim-visual   { opacity: 0; animation: heroFadeIn 600ms var(--ease-out-expo) 200ms forwards; }
 
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity var(--duration-reveal) var(--ease-out-expo),
-              transform var(--duration-reveal) var(--ease-out-expo);
+/* ==========================================================================
+   2. INTERACTIVE TAB SWITCHING TRANSITION
+   ========================================================================== */
+
+@keyframes tabContentFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.reveal.is-revealed { opacity: 1; transform: translateY(0); }
 
-.reveal-fade { opacity: 0; transition: opacity var(--duration-reveal) var(--ease-out-expo); }
-.reveal-fade.is-revealed { opacity: 1; }
-
-.reveal-section-header {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 550ms var(--ease-out-expo), transform 550ms var(--ease-out-expo);
+.tab-pane-enter {
+  animation: tabContentFade var(--duration-tab) var(--ease-out-expo) forwards;
 }
-.reveal-section-header.is-revealed { opacity: 1; transform: translateY(0); }
 
+/* ==========================================================================
+   3. DEFAULT BASE STATE: CONTENT IS ALWAYS 100% VISIBLE
+   Guarantees that no element remains blank even if JS or observer fails.
+   ========================================================================== */
+
+.reveal,
+.reveal-fade,
+.reveal-section-header,
+.stagger-children,
 .stagger-children > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================================
+   4. PROGRESSIVE ENHANCEMENT: ARMED BELOW-THE-FOLD STATES
+   Only added dynamically via JavaScript to elements below the viewport.
+   Restrained to 8px–10px micro-translations to prevent large distracting jumps.
+   ========================================================================== */
+
+.reveal-pending {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(10px);
   transition: opacity var(--duration-reveal) var(--ease-out-expo),
               transform var(--duration-reveal) var(--ease-out-expo);
+  will-change: opacity, transform;
 }
-.stagger-children.is-revealed > * { opacity: 1; transform: translateY(0); }
 
-.stagger-children.is-revealed > *:nth-child(1)  { transition-delay: 0ms;   }
-.stagger-children.is-revealed > *:nth-child(2)  { transition-delay: 70ms;  }
-.stagger-children.is-revealed > *:nth-child(3)  { transition-delay: 140ms; }
-.stagger-children.is-revealed > *:nth-child(4)  { transition-delay: 210ms; }
-.stagger-children.is-revealed > *:nth-child(5)  { transition-delay: 280ms; }
-.stagger-children.is-revealed > *:nth-child(6)  { transition-delay: 350ms; }
-.stagger-children.is-revealed > *:nth-child(7)  { transition-delay: 420ms; }
-.stagger-children.is-revealed > *:nth-child(8)  { transition-delay: 490ms; }
-.stagger-children.is-revealed > *:nth-child(9)  { transition-delay: 560ms; }
-.stagger-children.is-revealed > *:nth-child(10) { transition-delay: 630ms; }
+.reveal-pending.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-pending > * {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--duration-reveal) var(--ease-out-expo),
+              transform var(--duration-reveal) var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+
+.stagger-pending.is-revealed > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Rapid 35ms stagger intervals so users never wait for content */
+.stagger-pending.is-revealed > *:nth-child(1)  { transition-delay: 0ms;   }
+.stagger-pending.is-revealed > *:nth-child(2)  { transition-delay: 35ms;  }
+.stagger-pending.is-revealed > *:nth-child(3)  { transition-delay: 70ms;  }
+.stagger-pending.is-revealed > *:nth-child(4)  { transition-delay: 105ms; }
+.stagger-pending.is-revealed > *:nth-child(5)  { transition-delay: 140ms; }
+.stagger-pending.is-revealed > *:nth-child(6)  { transition-delay: 175ms; }
+.stagger-pending.is-revealed > *:nth-child(7)  { transition-delay: 210ms; }
+.stagger-pending.is-revealed > *:nth-child(8)  { transition-delay: 245ms; }
+.stagger-pending.is-revealed > *:nth-child(9)  { transition-delay: 280ms; }
+.stagger-pending.is-revealed > *:nth-child(10) { transition-delay: 315ms; }
+
+/* ==========================================================================
+   5. TACTILE HOVER ELEVATIONS (Desktop Only)
+   ========================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+  .card-interactive {
+    transition: transform 180ms var(--ease-out-expo),
+                box-shadow 180ms var(--ease-out-expo),
+                border-color 180ms var(--ease-out-expo);
+  }
+  .card-interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  }
+}
+
+/* Legacy compatibility classes */
+.reveal.is-revealed,
+.reveal-section-header.is-revealed,
+.stagger-children.is-revealed > * {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* ==========================================================================
+   6. ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal-fade, .reveal-section-header,
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal,
+  .reveal-fade,
+  .reveal-section-header,
+  .reveal-pending,
+  .stagger-pending,
+  .stagger-pending > *,
+  .stagger-children,
   .stagger-children > *,
-  .hero-anim-eyebrow, .hero-anim-headline, .hero-anim-para,
-  .hero-anim-tagline, .hero-anim-cta, .hero-anim-visual {
+  .tab-pane-enter,
+  .card-interactive,
+  .hero-anim-eyebrow,
+  .hero-anim-headline,
+  .hero-anim-para,
+  .hero-anim-tagline,
+  .hero-anim-cta,
+  .hero-anim-visual {
     opacity: 1 !important;
     transform: none !important;
     animation: none !important;

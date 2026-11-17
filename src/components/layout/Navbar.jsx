@@ -83,14 +83,20 @@ export function Navbar() {
     {
       id: 'services',
       label: 'Services',
-      sectionId: 'services',
+      sectionId: 'services-ecosystem',
       icon: Monitor
     },
     {
-      id: 'process',
-      label: 'Our Process',
-      sectionId: 'how-we-work',
+      id: 'showcase',
+      label: 'Showcase',
+      sectionId: 'showcase-gallery',
       icon: Layers
+    },
+    {
+      id: 'architecture',
+      label: 'Architecture',
+      sectionId: 'architecture',
+      icon: Compass
     },
     {
       id: 'discovery',

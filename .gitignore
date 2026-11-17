@@ -15,3 +15,7 @@ dist/
 .vscode/
 .idea/
 
+# Screenshots & review artifacts
+screenshots/
+
+

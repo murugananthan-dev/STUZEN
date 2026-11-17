@@ -1,37 +1,46 @@
 import React from 'react';
 import HeroSection from '../components/agency/HeroSection';
-import ServicesSection from '../components/agency/ServicesSection';
-import DiscoveryRoadmap from '../components/agency/DiscoveryRoadmap';
-import ProcessSection from '../components/agency/ProcessSection';
-import WhyStuzenSection from '../components/agency/WhyStuzenSection';
+import ServicesEcosystemSection from '../components/agency/ServicesEcosystemSection';
+import ShowcaseGallerySection from '../components/agency/ShowcaseGallerySection';
+import AnalyticsDashboardSection from '../components/agency/AnalyticsDashboardSection';
+import AiWhatsAppSection from '../components/agency/AiWhatsAppSection';
+import ArchitectureSection from '../components/agency/ArchitectureSection';
 import FinalCTASection from '../components/agency/FinalCTASection';
 
 /**
- * AgencyHomeView (Phase 2)
- * Complete, conversion-focused corporate landing page for STUZEN TECHNOLOGIES.
- * Introduces the agency, showcases 3 core service pillars, explains the 10-stage
- * discovery methodology, highlights delivery philosophy, and directs visitors to
- * the interactive discovery questionnaire.
+ * AgencyHomeView
+ * STUZEN TECHNOLOGIES corporate agency landing page.
+ * Implements the approved Stitch design specifications across 7 core sections:
+ * 1. Cinematic Hero Section (#hero)
+ * 2. Signature Interactive Service Ecosystem (#services-ecosystem)
+ * 3. Product Showcase Gallery (#showcase-gallery)
+ * 4. Visual Analytics & Live Telemetry Dashboard (#analytics)
+ * 5. Enterprise WhatsApp & AI Workflow Pipeline (#ai-and-whatsapp)
+ * 6. Battle-Tested Engineering & Technology Architecture (#architecture)
+ * 7. Memorable High-Contrast Closing Final CTA (#conversation-cta)
  */
 export function AgencyHomeView() {
   return (
     <div className="agency-home-view">
-      {/* 1. First-Screen Hero Section */}
+      {/* SECTION 1: CINEMATIC HERO SECTION */}
       <HeroSection />
 
-      {/* 2. Three Core Service Pillars */}
-      <ServicesSection />
+      {/* SECTION 2: SIGNATURE INTERACTIVE SERVICE ECOSYSTEM */}
+      <ServicesEcosystemSection />
 
-      {/* 3. 10-Stage Project Discovery Roadmap */}
-      <DiscoveryRoadmap />
+      {/* SECTION 3: PRODUCT SHOWCASE GALLERY (REALISTIC INTERFACES) */}
+      <ShowcaseGallerySection />
 
-      {/* 4. How We Work (4-Step Delivery Lifecycle) */}
-      <ProcessSection />
+      {/* SECTION 4: VISUAL ANALYTICS AND GRAPHS DASHBOARD PREVIEW */}
+      <AnalyticsDashboardSection />
 
-      {/* 5. Why Choose STUZEN TECHNOLOGIES Value Propositions */}
-      <WhyStuzenSection />
+      {/* SECTION 5: AI & WHATSAPP AUTOMATION SHOWCASE */}
+      <AiWhatsAppSection />
 
-      {/* 6. High-Contrast Final Call To Action */}
+      {/* SECTION 6: ENGINEERING & TECHNOLOGY ARCHITECTURE VISUAL STORY */}
+      <ArchitectureSection />
+
+      {/* SECTION 7: MEMORABLE COLOURFUL CLOSING FINAL CTA */}
       <FinalCTASection />
     </div>
   );

@@ -68,6 +68,11 @@
   transition: background-color var(--transition-normal), border-color var(--transition-normal);
 }
 
+/* Ensure anchor-targeted sections have breathing room below the sticky header */
+section[id] {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
 .navbar-container {
   display: flex;
   align-items: center;

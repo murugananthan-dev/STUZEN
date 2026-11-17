@@ -5,88 +5,209 @@ import brandConfig from '../../config/brandConfig';
 
 /**
  * Footer Component
- * Corporate dark-theme footer with brand mark, service pillars, and navigation shortcuts.
+ * Stitch-approved enterprise footer layout with dark theme,
+ * active section navigation, client gateway access, and security alignment badges.
  */
 export function Footer() {
-  const { navigateTo, VIEWS } = useNavigation();
+  const { currentView, navigateTo } = useNavigation();
   const currentYear = new Date().getFullYear();
 
+  const handleAnchorClick = (e, sectionId) => {
+    e.preventDefault();
+    if (currentView !== VIEWS.AGENCY) {
+      navigateTo(VIEWS.AGENCY);
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 120);
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <footer className="site-footer" role="contentinfo">
-      <div className="container">
-        <div className="footer-grid">
+    <footer className="w-full bg-primary-container text-surface-container-high border-t border-outline/20 relative overflow-hidden" role="contentinfo">
+      {/* Ambient background glow */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div className="max-w-[1280px] mx-auto px-gutter-mobile lg:px-gutter py-10 md:py-14 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 pb-8 md:pb-10 border-b border-outline/20">
           {/* Brand Info Column */}
-          <div className="footer-brand-col">
-            <BrandLogo
-              variant="dark"
-              width={160}
-              alt={`${brandConfig.companyName} Logo`}
-            />
-            <div>
-              <h3 className="footer-company-name">{brandConfig.companyName}</h3>
-              <p className="footer-tagline">{brandConfig.tagline}</p>
-            </div>
-            <p className="footer-description">
-              {brandConfig.description}
-            </p>
-          </div>
-
-          {/* Core Service Pillars Column */}
-          <div>
-            <h4 className="footer-col-title">Core Service Pillars</h4>
-            <div className="footer-pillars-text">
-              <p style={{ fontWeight: 600, color: '#f8fafc', marginBottom: '0.5rem' }}>
-                Website Development | Custom Software | AI & Automation
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
+            <div className="space-y-3">
+              <div className="flex items-center gap-space-xs">
+                <BrandLogo
+                  variant="dark"
+                  width={150}
+                  alt={`${brandConfig.companyName} Logo`}
+                />
+                <span className="w-2 h-2 rounded-full bg-secondary-container shadow-[0_0_8px_#5bb8fe]"></span>
+              </div>
+              <p className="font-body-sm text-body-sm text-outline-variant max-w-sm">
+                High-stakes digital engineering, enterprise conversational AI infrastructures, and resilient distributed architectures.
               </p>
-              <ul className="footer-links-list" style={{ marginTop: '0.75rem' }}>
-                {brandConfig.servicePillars.map((pillar) => (
-                  <li key={pillar.id} style={{ color: '#94a3b8', fontSize: '0.875rem' }}>
-                    • {pillar.title}
-                  </li>
-                ))}
-              </ul>
+            </div>
+
+            <div className="pt-3">
+              <div className="flex flex-wrap items-center gap-space-sm">
+                <div className="px-space-sm py-space-xs bg-inverse-surface border border-outline/30 rounded flex items-center gap-space-xs">
+                  <span className="material-symbols-outlined text-[14px] text-secondary-container">verified_user</span>
+                  <span className="font-label-sm text-label-sm uppercase tracking-wider text-surface-bright">
+                    Modern Security Standards
+                  </span>
+                </div>
+                <div className="px-space-sm py-space-xs bg-inverse-surface border border-outline/30 rounded flex items-center gap-space-xs">
+                  <span className="material-symbols-outlined text-[14px] text-secondary-container">lock</span>
+                  <span className="font-label-sm text-label-sm uppercase tracking-wider text-surface-bright">
+                    Privacy-First Engineering
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Quick Navigation Shortcuts Column */}
-          <div>
-            <h4 className="footer-col-title">Navigation</h4>
-            <ul className="footer-links-list">
-              <li>
+          {/* Capabilities Column */}
+          <div className="lg:col-span-2 space-y-space-md">
+            <p className="font-label-md text-label-md uppercase tracking-wider text-surface-lowest font-medium">
+              Capabilities
+            </p>
+            <ul className="space-y-space-sm font-body-sm text-body-sm text-outline-variant">
+              <li className="hover:text-surface-lowest transition-colors">
+                <a
+                  href="#services-ecosystem"
+                  onClick={(e) => handleAnchorClick(e, 'services-ecosystem')}
+                  className="hover:underline"
+                >
+                  Cloud Architectures
+                </a>
+              </li>
+              <li className="hover:text-surface-lowest transition-colors">
+                <a
+                  href="#ai-and-whatsapp"
+                  onClick={(e) => handleAnchorClick(e, 'ai-and-whatsapp')}
+                  className="hover:underline"
+                >
+                  Enterprise WhatsApp AI
+                </a>
+              </li>
+              <li className="hover:text-surface-lowest transition-colors">
+                <a
+                  href="#analytics"
+                  onClick={(e) => handleAnchorClick(e, 'analytics')}
+                  className="hover:underline"
+                >
+                  Telemetry &amp; Analytics
+                </a>
+              </li>
+              <li className="hover:text-surface-lowest transition-colors">
+                <a
+                  href="#architecture"
+                  onClick={(e) => handleAnchorClick(e, 'architecture')}
+                  className="hover:underline"
+                >
+                  Resilience Strategy
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Company Column */}
+          <div className="lg:col-span-2 space-y-space-md">
+            <p className="font-label-md text-label-md uppercase tracking-wider text-surface-lowest font-medium">
+              Company
+            </p>
+            <ul className="space-y-space-sm font-body-sm text-body-sm text-outline-variant">
+              <li className="hover:text-surface-lowest transition-colors">
                 <button
                   type="button"
-                  className="footer-link-button"
-                  onClick={() => navigateTo(VIEWS.AGENCY)}
+                  onClick={() => {
+                    navigateTo(VIEWS.AGENCY);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="text-left hover:underline text-outline-variant hover:text-surface-lowest"
                 >
-                  Agency Home
+                  Overview &amp; Ethos
                 </button>
               </li>
-              <li>
+              <li className="hover:text-surface-lowest transition-colors">
+                <a
+                  href="#showcase-gallery"
+                  onClick={(e) => handleAnchorClick(e, 'showcase-gallery')}
+                  className="hover:underline"
+                >
+                  Selected Works
+                </a>
+              </li>
+              <li className="hover:text-surface-lowest transition-colors">
                 <button
                   type="button"
-                  className="footer-link-button"
                   onClick={() => navigateTo(VIEWS.DISCOVERY)}
+                  className="text-left hover:underline text-outline-variant hover:text-surface-lowest"
                 >
-                  Client Discovery Questionnaire
+                  Discovery Questionnaire
                 </button>
               </li>
-              <li>
+              <li className="hover:text-surface-lowest transition-colors">
                 <button
                   type="button"
-                  className="footer-link-button"
                   onClick={() => navigateTo(VIEWS.PRINT)}
+                  className="text-left hover:underline text-outline-variant hover:text-surface-lowest"
                 >
-                  Formal Requirements Document (Print)
+                  Formal Document (Print)
                 </button>
               </li>
             </ul>
           </div>
+
+          {/* Operational Nodes Column */}
+          <div className="lg:col-span-3 space-y-space-md">
+            <p className="font-label-md text-label-md uppercase tracking-wider text-surface-lowest font-medium">
+              Operational Nodes
+            </p>
+            <p className="font-body-sm text-body-sm text-outline-variant">
+              Global distributed core. Direct encrypted inquiries via engineering gateways.
+            </p>
+            <div className="pt-space-xs">
+              <button
+                type="button"
+                onClick={() => navigateTo(VIEWS.DISCOVERY)}
+                className="inline-block px-space-md py-space-sm bg-secondary text-on-secondary font-label-md text-label-md uppercase tracking-wide rounded hover:bg-secondary-container hover:text-on-secondary-container transition-colors cursor-pointer"
+              >
+                Access Client Gateway
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Footer Bottom Bar */}
-        <div className="footer-bottom">
-          <p>© {currentYear} {brandConfig.companyName}. All rights reserved.</p>
-          <p>{brandConfig.tagline}</p>
+        <div className="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md">
+          <p className="font-label-sm text-label-sm text-outline-variant text-center md:text-left">
+            © {currentYear} {brandConfig.companyName}. All rights reserved. Sovereign digital operations.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-space-lg font-label-sm text-label-sm text-outline-variant">
+            <button
+              type="button"
+              onClick={() => navigateTo(VIEWS.DISCOVERY)}
+              className="hover:text-surface-lowest transition-colors"
+            >
+              Start Discovery
+            </button>
+            <button
+              type="button"
+              onClick={() => navigateTo(VIEWS.PRINT)}
+              className="hover:text-surface-lowest transition-colors"
+            >
+              Requirements Spec
+            </button>
+            <a
+              href="#architecture"
+              onClick={(e) => handleAnchorClick(e, 'architecture')}
+              className="hover:text-surface-lowest transition-colors"
+            >
+              Security Policy
+            </a>
+          </div>
         </div>
       </div>
     </footer>
@@ -94,4 +215,3 @@ export function Footer() {
 }
 
 export default Footer;
-

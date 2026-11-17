@@ -1,63 +1,78 @@
 import React from 'react';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import { useNavigation } from '../../context/NavigationContext';
+import { useNavigation, VIEWS } from '../../context/NavigationContext';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
-import brandConfig from '../../config/brandConfig';
 
 /**
- * FinalCTASection Component
- * High-contrast conversion section closing the landing page and directing
- * visitors to begin their project requirements discovery.
+ * FinalCTASection (Section 7: Executive Conversion Console)
+ * High-contrast institutional invitation console with confident typography,
+ * direct discovery triggers, and transparent technical collaboration.
  */
 export function FinalCTASection() {
-  const { navigateTo, VIEWS } = useNavigation();
-  const ctaRef = useScrollReveal({ threshold: 0.15 });
+  const { navigateTo } = useNavigation();
+  const ctaRef = useScrollReveal({ threshold: 0.1 });
 
   return (
-    <section id="contact-cta" className="agency-section final-cta-section" aria-labelledby="cta-heading">
-      <div className="container">
-        <div className="final-cta-container reveal-fade" ref={ctaRef}>
-          <div style={{ marginBottom: 'var(--space-4)' }}>
-            <span
-              className="badge"
-              style={{
-                backgroundColor: 'rgba(2, 132, 199, 0.2)',
-                color: '#38bdf8',
-                border: '1px solid rgba(2, 132, 199, 0.4)'
-              }}
-            >
-              <Sparkles size={12} aria-hidden="true" />
-              START YOUR JOURNEY
-            </span>
+    <section
+      className="w-full py-12 md:py-16 lg:py-20 relative overflow-hidden bg-slate-950 text-white border-t border-slate-900"
+      id="conversation-cta"
+    >
+      {/* Subtle, restrained ambient background glow */}
+      <div className="absolute -top-24 left-1/4 w-96 h-96 bg-cyan-900/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-900/15 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-[1280px] mx-auto px-gutter-mobile lg:px-gutter relative z-10">
+        <div
+          className="rounded-3xl bg-slate-900/90 backdrop-blur-md p-6 sm:p-10 lg:p-12 text-center max-w-3xl mx-auto space-y-4 sm:space-y-5 border border-slate-800 shadow-sm reveal"
+          ref={ctaRef}
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 text-cyan-300 text-[11px] font-mono font-semibold uppercase tracking-wider border border-cyan-800/40">
+            <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+            <span>Initiate Digital Engagement</span>
           </div>
 
-          <h2 id="cta-heading" className="final-cta-headline">
-            Have a Digital Project in Mind?
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-headline tracking-tight text-white leading-tight">
+            Let's Build What's Next.
           </h2>
 
-          <p className="final-cta-description">
-            Let's understand your business, explore your requirements and identify the right digital solution.
+          <p className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
+            Have a business idea, legacy system constraint, or digital automation challenge? Turn it into a resilient, sovereign technology solution engineered for scale.
           </p>
 
-          <div className="final-cta-button-wrap">
+          {/* CTA Buttons Row */}
+          <div className="pt-2 sm:pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
             <button
               type="button"
-              className="btn btn-primary btn-lg"
               onClick={() => navigateTo(VIEWS.DISCOVERY)}
-              aria-label="Start Your Project Discovery interactive questionnaire"
-              style={{
-                backgroundColor: '#0284c7',
-                borderColor: '#0284c7',
-                boxShadow: '0 10px 25px -5px rgba(2, 132, 199, 0.5)'
-              }}
+              className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-lg bg-cyan-500 text-slate-950 font-semibold text-sm shadow-sm hover:bg-cyan-400 transition-all duration-150 cursor-pointer"
             >
-              <span>Start Your Project Discovery</span>
-              <ArrowRight size={18} aria-hidden="true" />
+              <span className="material-symbols-outlined mr-2 text-[18px]">send</span>
+              <span>Start a Conversation</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigateTo(VIEWS.DISCOVERY)}
+              className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-lg bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm hover:bg-slate-700 transition-all duration-150 shadow-sm cursor-pointer"
+            >
+              <span className="material-symbols-outlined mr-2 text-[18px] text-cyan-400">calendar_month</span>
+              <span>Schedule Architecture Review</span>
             </button>
           </div>
 
-          <div className="final-cta-tagline">
-            <span>{brandConfig.tagline}</span>
+          {/* Consultation Principles */}
+          <div className="pt-4 sm:pt-5 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-mono text-slate-400 border-t border-slate-800/80">
+            <div className="flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-[15px] text-cyan-400">schedule</span>
+              <span>Dedicated Discovery Session</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-[15px] text-cyan-400">lock</span>
+              <span>Confidential Project Review</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-[15px] text-cyan-400">verified</span>
+              <span>Direct Technical Collaboration</span>
+            </div>
           </div>
         </div>
       </div>
@@ -66,4 +81,3 @@ export function FinalCTASection() {
 }
 
 export default FinalCTASection;
-
