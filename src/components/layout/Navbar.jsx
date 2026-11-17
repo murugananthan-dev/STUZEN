@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Home, Monitor, Layers, Compass, Printer, ArrowRight } from 'lucide-react';
+import { Menu, X, Home, Monitor, Layers, Compass, Printer, ArrowRight, Share2 } from 'lucide-react';
 import { useNavigation, VIEWS } from '../../context/NavigationContext';
 import BrandLogo from './BrandLogo';
 import brandConfig from '../../config/brandConfig';
@@ -10,7 +10,7 @@ import brandConfig from '../../config/brandConfig';
  * integrated section scrolling, and view routing.
  */
 export function Navbar() {
-  const { currentView, navigateTo, VIEWS } = useNavigation();
+  const { currentView, navigateTo, VIEWS, openShareModal } = useNavigation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const navRef = useRef(null);
@@ -166,6 +166,17 @@ export function Navbar() {
 
           {/* Action Button & Mobile Toggle */}
           <div className="navbar-actions">
+            {/* Share Website Quick Action Button */}
+            <button
+              type="button"
+              className="navbar-share-btn"
+              onClick={openShareModal}
+              title="Share STUZEN"
+              aria-label="Share STUZEN"
+            >
+              <Share2 size={16} />
+            </button>
+
             <button
               type="button"
               className="btn btn-primary btn-sm"
@@ -217,6 +228,20 @@ export function Navbar() {
                 </li>
               );
             })}
+            <li className="pt-2 border-t border-outline/10">
+              <button
+                type="button"
+                className="mobile-nav-link text-brand-secondary font-semibold"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  openShareModal();
+                }}
+                aria-label="Share STUZEN"
+              >
+                <Share2 size={18} strokeWidth={2.2} />
+                <span>Share STUZEN</span>
+              </button>
+            </li>
           </ul>
         </div>
       )}

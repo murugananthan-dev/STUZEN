@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import ShareModal from '../common/ShareModal';
 import { useNavigation } from '../../context/NavigationContext';
 
 /**
@@ -11,7 +12,7 @@ import { useNavigation } from '../../context/NavigationContext';
  * @param {React.ReactNode} children - Active view component
  */
 export function AppLayout({ children }) {
-  const { currentView } = useNavigation();
+  const { currentView, isShareModalOpen, closeShareModal } = useNavigation();
 
   return (
     <div className={`app-shell view-${currentView}`}>
@@ -25,6 +26,12 @@ export function AppLayout({ children }) {
 
       {/* Persistent Global Footer */}
       <Footer />
+
+      {/* Enterprise Share Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={closeShareModal}
+      />
     </div>
   );
 }

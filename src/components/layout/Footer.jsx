@@ -1,4 +1,5 @@
 import React from 'react';
+import { Share2 } from 'lucide-react';
 import { useNavigation, VIEWS } from '../../context/NavigationContext';
 import BrandLogo from './BrandLogo';
 import brandConfig from '../../config/brandConfig';
@@ -9,7 +10,7 @@ import brandConfig from '../../config/brandConfig';
  * active section navigation, client gateway access, and security alignment badges.
  */
 export function Footer() {
-  const { currentView, navigateTo } = useNavigation();
+  const { currentView, navigateTo, openShareModal } = useNavigation();
   const currentYear = new Date().getFullYear();
 
   const handleAnchorClick = (e, sectionId) => {
@@ -51,6 +52,15 @@ export function Footer() {
 
             <div className="pt-3">
               <div className="flex flex-wrap items-center gap-space-sm">
+                <button
+                  type="button"
+                  onClick={openShareModal}
+                  className="footer-share-badge-btn"
+                  aria-label="Share STUZEN TECHNOLOGIES"
+                >
+                  <Share2 size={15} />
+                  <span>Share STUZEN</span>
+                </button>
                 <div className="px-space-sm py-space-xs bg-inverse-surface border border-outline/30 rounded flex items-center gap-space-xs">
                   <span className="material-symbols-outlined text-[14px] text-secondary-container">verified_user</span>
                   <span className="font-label-sm text-label-sm uppercase tracking-wider text-surface-bright">
@@ -186,6 +196,15 @@ export function Footer() {
             © {currentYear} {brandConfig.companyName}. All rights reserved. Sovereign digital operations.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-space-lg font-label-sm text-label-sm text-outline-variant">
+            <button
+              type="button"
+              onClick={openShareModal}
+              className="hover:text-surface-lowest text-secondary-container font-semibold transition-colors flex items-center gap-1.5"
+              aria-label="Share STUZEN"
+            >
+              <Share2 size={13} />
+              <span>Share STUZEN</span>
+            </button>
             <button
               type="button"
               onClick={() => navigateTo(VIEWS.DISCOVERY)}

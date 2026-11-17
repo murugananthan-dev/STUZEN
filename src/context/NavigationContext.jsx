@@ -32,6 +32,17 @@ export function NavigationProvider({ children }) {
     return VIEWS.AGENCY;
   });
 
+  // Global share modal visibility state
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
+  const openShareModal = useCallback(() => {
+    setIsShareModalOpen(true);
+  }, []);
+
+  const closeShareModal = useCallback(() => {
+    setIsShareModalOpen(false);
+  }, []);
+
   // Navigate handler that persists view selection and resets scroll
   const navigateTo = useCallback((view) => {
     const targetView = VALID_VIEWS.includes(view) ? view : VIEWS.AGENCY;
@@ -55,7 +66,17 @@ export function NavigationProvider({ children }) {
   );
 
   return (
-    <NavigationContext.Provider value={{ currentView, navigateTo, isView, VIEWS }}>
+    <NavigationContext.Provider
+      value={{
+        currentView,
+        navigateTo,
+        isView,
+        VIEWS,
+        isShareModalOpen,
+        openShareModal,
+        closeShareModal
+      }}
+    >
       {children}
     </NavigationContext.Provider>
   );
