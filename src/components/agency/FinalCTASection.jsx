@@ -43,7 +43,7 @@ export function FinalCTASection() {
             <button
               type="button"
               onClick={() => navigateTo(VIEWS.DISCOVERY)}
-              className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-lg bg-cyan-500 text-slate-950 font-semibold text-sm shadow-sm hover:bg-cyan-400 transition-all duration-150 cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-lg bg-cyan-500 text-slate-950 font-semibold text-sm shadow-sm hover:bg-cyan-400 transition-all duration-300 cursor-pointer"
             >
               <span className="material-symbols-outlined mr-2 text-[18px]">send</span>
               <span>Start a Conversation</span>
@@ -52,7 +52,7 @@ export function FinalCTASection() {
             <button
               type="button"
               onClick={() => navigateTo(VIEWS.DISCOVERY)}
-              className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-lg bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm hover:bg-slate-700 transition-all duration-150 shadow-sm cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-lg bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm hover:bg-slate-700 transition-all duration-300 shadow-sm cursor-pointer"
             >
               <span className="material-symbols-outlined mr-2 text-[18px] text-cyan-400">calendar_month</span>
               <span>Schedule Architecture Review</span>

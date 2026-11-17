@@ -59,7 +59,7 @@ export function HeroSection() {
               <a
                 href="#services-ecosystem"
                 onClick={handleScrollToServices}
-                className="inline-flex items-center justify-center px-6 py-3.5 rounded-lg bg-primary text-on-primary font-semibold text-sm shadow-sm hover:bg-inverse-surface transition-all duration-150 cursor-pointer"
+                className="inline-flex items-center justify-center px-6 py-3.5 rounded-lg bg-primary text-on-primary font-semibold text-sm shadow-sm hover:bg-inverse-surface transition-all duration-300 cursor-pointer"
               >
                 <span>Explore Our Solutions</span>
                 <span className="material-symbols-outlined ml-2 text-secondary-container text-[18px]">arrow_forward</span>
@@ -68,7 +68,7 @@ export function HeroSection() {
               <button
                 type="button"
                 onClick={handleStartProject}
-                className="inline-flex items-center justify-center px-6 py-3.5 rounded-lg bg-surface-container-lowest text-on-surface border border-outline/20 font-semibold text-sm shadow-sm hover:bg-surface-container transition-all duration-150 cursor-pointer"
+                className="inline-flex items-center justify-center px-6 py-3.5 rounded-lg bg-surface-container-lowest text-on-surface border border-outline/20 font-semibold text-sm shadow-sm hover:bg-surface-container transition-all duration-300 cursor-pointer"
               >
                 <span className="material-symbols-outlined mr-2 text-secondary text-[18px]">chat_bubble</span>
                 <span>Start a Project</span>

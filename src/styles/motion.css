@@ -10,19 +10,21 @@
 :root {
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --duration-hero: 500ms;
-  --duration-reveal: 380ms;
-  --duration-tab: 180ms;
+  --duration-hero: 1200ms;
+  --duration-reveal: 1200ms;
+  --duration-reveal-exit: 900ms;
+  --duration-tab: 900ms;
+  --duration-hover: 350ms;
 }
 
 /* ==========================================================================
-   1. HERO INITIAL ENTRANCE (Runs once on page mount with restrained 10px drift)
+   1. HERO INITIAL ENTRANCE (Noticeable but professional editorial entrance)
    ========================================================================== */
 
 @keyframes heroFadeUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -33,27 +35,7 @@
 @keyframes heroFadeIn {
   from {
     opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.hero-anim-eyebrow  { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 50ms  forwards; }
-.hero-anim-headline { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 120ms forwards; }
-.hero-anim-para     { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 200ms forwards; }
-.hero-anim-tagline  { opacity: 0; animation: heroFadeIn var(--duration-hero) var(--ease-out-expo) 260ms forwards; }
-.hero-anim-cta      { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-expo) 300ms forwards; }
-.hero-anim-visual   { opacity: 0; animation: heroFadeIn 600ms var(--ease-out-expo) 200ms forwards; }
-
-/* ==========================================================================
-   2. INTERACTIVE TAB SWITCHING TRANSITION
-   ========================================================================== */
-
-@keyframes tabContentFade {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -61,8 +43,69 @@
   }
 }
 
+.hero-anim-eyebrow  { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-quart) 100ms forwards; }
+.hero-anim-headline { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-quart) 250ms forwards; }
+.hero-anim-para     { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-quart) 450ms forwards; }
+.hero-anim-tagline  { opacity: 0; animation: heroFadeIn var(--duration-hero) var(--ease-out-quart) 600ms forwards; }
+.hero-anim-cta      { opacity: 0; animation: heroFadeUp var(--duration-hero) var(--ease-out-quart) 700ms forwards; }
+.hero-anim-visual   { opacity: 0; animation: heroFadeIn var(--duration-hero) var(--ease-out-quart) 400ms forwards; }
+
+/* ==========================================================================
+   2. INTERACTIVE TAB SWITCHING TRANSITION
+   Both outgoing and incoming content transitions visible for 900ms.
+   ========================================================================== */
+
+@keyframes tabContentFade {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tabContentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tabContentFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+
+.tab-stage-stage {
+  position: relative;
+  width: 100%;
+}
+
 .tab-pane-enter {
-  animation: tabContentFade var(--duration-tab) var(--ease-out-expo) forwards;
+  animation: tabContentFadeIn var(--duration-tab) var(--ease-out-quart) forwards;
+  will-change: opacity, transform;
+}
+
+.tab-pane-exit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  animation: tabContentFadeOut var(--duration-tab) var(--ease-out-quart) forwards;
+  will-change: opacity, transform;
 }
 
 /* ==========================================================================
@@ -80,71 +123,103 @@
 }
 
 /* ==========================================================================
-   4. PROGRESSIVE ENHANCEMENT: ARMED BELOW-THE-FOLD STATES
-   Only added dynamically via JavaScript to elements below the viewport.
-   Restrained to 8px–10px micro-translations to prevent large distracting jumps.
+   4. PROGRESSIVE ENHANCEMENT: ARMED BELOW-THE-FOLD & BIDIRECTIONAL STATES
+   Fade-in: 1200ms duration with clear 24px upward movement.
+   Fade-out / exit: 900ms smooth transition.
    ========================================================================== */
 
+.reveal-init,
 .reveal-pending {
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity var(--duration-reveal) var(--ease-out-expo),
-              transform var(--duration-reveal) var(--ease-out-expo);
+  transform: translateY(24px);
+  transition: opacity var(--duration-reveal-exit) var(--ease-out-quart),
+              transform var(--duration-reveal-exit) var(--ease-out-quart);
   will-change: opacity, transform;
 }
 
+.reveal-init.is-revealed,
 .reveal-pending.is-revealed {
   opacity: 1;
   transform: translateY(0);
+  transition: opacity var(--duration-reveal) var(--ease-out-quart),
+              transform var(--duration-reveal) var(--ease-out-quart);
 }
 
+.stagger-init > *,
 .stagger-pending > * {
   opacity: 0;
-  transform: translateY(8px);
-  transition: opacity var(--duration-reveal) var(--ease-out-expo),
-              transform var(--duration-reveal) var(--ease-out-expo);
+  transform: translateY(24px);
+  transition: opacity var(--duration-reveal-exit) var(--ease-out-quart),
+              transform var(--duration-reveal-exit) var(--ease-out-quart);
   will-change: opacity, transform;
 }
 
+.stagger-init.is-revealed > *,
 .stagger-pending.is-revealed > * {
   opacity: 1;
   transform: translateY(0);
+  transition: opacity var(--duration-reveal) var(--ease-out-quart),
+              transform var(--duration-reveal) var(--ease-out-quart);
 }
 
-/* Rapid 35ms stagger intervals so users never wait for content */
-.stagger-pending.is-revealed > *:nth-child(1)  { transition-delay: 0ms;   }
-.stagger-pending.is-revealed > *:nth-child(2)  { transition-delay: 35ms;  }
-.stagger-pending.is-revealed > *:nth-child(3)  { transition-delay: 70ms;  }
-.stagger-pending.is-revealed > *:nth-child(4)  { transition-delay: 105ms; }
-.stagger-pending.is-revealed > *:nth-child(5)  { transition-delay: 140ms; }
-.stagger-pending.is-revealed > *:nth-child(6)  { transition-delay: 175ms; }
-.stagger-pending.is-revealed > *:nth-child(7)  { transition-delay: 210ms; }
-.stagger-pending.is-revealed > *:nth-child(8)  { transition-delay: 245ms; }
-.stagger-pending.is-revealed > *:nth-child(9)  { transition-delay: 280ms; }
-.stagger-pending.is-revealed > *:nth-child(10) { transition-delay: 315ms; }
+/* 180ms Stagger Intervals (Applied when entering) */
+.stagger-init.is-revealed > *:nth-child(1),
+.stagger-pending.is-revealed > *:nth-child(1)  { transition-delay: 0ms;    }
+
+.stagger-init.is-revealed > *:nth-child(2),
+.stagger-pending.is-revealed > *:nth-child(2)  { transition-delay: 180ms;  }
+
+.stagger-init.is-revealed > *:nth-child(3),
+.stagger-pending.is-revealed > *:nth-child(3)  { transition-delay: 360ms;  }
+
+.stagger-init.is-revealed > *:nth-child(4),
+.stagger-pending.is-revealed > *:nth-child(4)  { transition-delay: 540ms;  }
+
+.stagger-init.is-revealed > *:nth-child(5),
+.stagger-pending.is-revealed > *:nth-child(5)  { transition-delay: 720ms;  }
+
+.stagger-init.is-revealed > *:nth-child(6),
+.stagger-pending.is-revealed > *:nth-child(6)  { transition-delay: 900ms;  }
+
+.stagger-init.is-revealed > *:nth-child(7),
+.stagger-pending.is-revealed > *:nth-child(7)  { transition-delay: 1080ms; }
+
+.stagger-init.is-revealed > *:nth-child(8),
+.stagger-pending.is-revealed > *:nth-child(8)  { transition-delay: 1260ms; }
+
+.stagger-init.is-revealed > *:nth-child(9),
+.stagger-pending.is-revealed > *:nth-child(9)  { transition-delay: 1440ms; }
+
+.stagger-init.is-revealed > *:nth-child(10),
+.stagger-pending.is-revealed > *:nth-child(10) { transition-delay: 1620ms; }
+
+.stagger-init.is-revealed > *:nth-child(11),
+.stagger-pending.is-revealed > *:nth-child(11) { transition-delay: 1800ms; }
+
+.stagger-init.is-revealed > *:nth-child(12),
+.stagger-pending.is-revealed > *:nth-child(12) { transition-delay: 1980ms; }
+
+/* When unrevealed (exiting), remove stagger delay so all elements exit together over 900ms */
+.stagger-init:not(.is-revealed) > *,
+.stagger-pending:not(.is-revealed) > * {
+  transition-delay: 0ms !important;
+}
 
 /* ==========================================================================
    5. TACTILE HOVER ELEVATIONS (Desktop Only)
+   Smooth 350ms transitions for subtle and elegant elevation feedback.
    ========================================================================== */
 
 @media (hover: hover) and (pointer: fine) {
   .card-interactive {
-    transition: transform 180ms var(--ease-out-expo),
-                box-shadow 180ms var(--ease-out-expo),
-                border-color 180ms var(--ease-out-expo);
+    transition: transform var(--duration-hover) var(--ease-out-quart),
+                box-shadow var(--duration-hover) var(--ease-out-quart),
+                border-color var(--duration-hover) var(--ease-out-quart);
   }
   .card-interactive:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px -4px rgba(15, 23, 42, 0.1), 0 3px 8px -1px rgba(15, 23, 42, 0.05);
   }
-}
-
-/* Legacy compatibility classes */
-.reveal.is-revealed,
-.reveal-section-header.is-revealed,
-.stagger-children.is-revealed > * {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
 }
 
 /* ==========================================================================
@@ -160,8 +235,11 @@
   .reveal,
   .reveal-fade,
   .reveal-section-header,
+  .reveal-init,
   .reveal-pending,
+  .stagger-init,
   .stagger-pending,
+  .stagger-init > *,
   .stagger-pending > *,
   .stagger-children,
   .stagger-children > *,
@@ -175,6 +253,11 @@
   .hero-anim-visual {
     opacity: 1 !important;
     transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .tab-pane-exit {
+    display: none !important;
     animation: none !important;
     transition: none !important;
   }

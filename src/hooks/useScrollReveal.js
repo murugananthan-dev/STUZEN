@@ -1,21 +1,19 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * useScrollReveal — Resilient IntersectionObserver-based scroll reveal hook.
+ * useScrollReveal — Resilient IntersectionObserver-based bidirectional scroll reveal hook.
  *
- * CRITICAL VISIBILITY GUARANTEES:
- * 1. Content is ALWAYS 100% visible by default in base CSS.
- * 2. Elements already within or near the viewport on load are NEVER hidden.
- * 3. Elements below the viewport are progressively enhanced with subtle entrance animations.
- * 4. Multi-layered triggers (IntersectionObserver + Scroll event + Safety Timer) guarantee
- *    content is NEVER permanently hidden or left blank under any condition.
- * 5. Strictly respects `prefers-reduced-motion: reduce`.
+ * CRITICAL VISIBILITY & MOTION GUARANTEES:
+ * 1. Bidirectional animation: Elements fade in on scroll down/back, and fade out on scroll away.
+ * 2. Stagger sequencing: Child elements cascade with noticeable 180ms delays.
+ * 3. Fallback resilience: If JS or IntersectionObserver fails, base CSS keeps all content 100% visible.
+ * 4. Accessibility: Strictly respects `prefers-reduced-motion: reduce`.
  */
 export function useScrollReveal(options = {}) {
   const ref = useRef(null);
   const isStagger = options.stagger ?? false;
-  const threshold = options.threshold ?? 0.05;
-  const rootMargin = options.rootMargin ?? '50px 0px 50px 0px';
+  const threshold = options.threshold ?? 0.1;
+  const rootMargin = options.rootMargin ?? '0px 0px -30px 0px';
 
   useEffect(() => {
     const el = ref.current;
@@ -32,63 +30,36 @@ export function useScrollReveal(options = {}) {
       return;
     }
 
-    const pendingClass = isStagger ? 'stagger-pending' : 'reveal-pending';
+    const armedClass = isStagger ? 'stagger-init' : 'reveal-init';
+    const legacyArmedClass = isStagger ? 'stagger-pending' : 'reveal-pending';
 
-    // Check if element is already within the current viewport (or within 100px below)
+    // Arm element with progressive enhancement classes
+    el.classList.add(armedClass, legacyArmedClass);
+
+    // Check if element is already inside the viewport on initial render
     const rect = el.getBoundingClientRect();
     const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    const isInitiallyVisible = rect.top < windowHeight - 40 && rect.bottom > 40;
 
-    if (rect.top <= windowHeight + 60) {
-      // Element is already visible or nearly visible on load — keep it 100% visible!
-      el.classList.add('is-revealed');
-      return;
+    if (isInitiallyVisible) {
+      // Trigger noticeable initial entrance animation after double rAF to guarantee paint
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (el) el.classList.add('is-revealed');
+        });
+      });
     }
 
-    // Element is genuinely below the viewport: arm it for smooth reveal
-    el.classList.add(pendingClass);
-
-    let hasRevealed = false;
-    const reveal = () => {
-      if (hasRevealed) return;
-      hasRevealed = true;
-      el.classList.add('is-revealed');
-
-      // Cleanup pending class after transition completes so it permanently uses base CSS
-      setTimeout(() => {
-        if (el) el.classList.remove(pendingClass);
-      }, 500);
-
-      if (observer) {
-        observer.disconnect();
-      }
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('touchmove', onScroll);
-    };
-
-    // Layer 1: Fail-safe timer (reveal within 750ms regardless of scroll/observer state)
-    const safetyTimer = setTimeout(reveal, 750);
-
-    // Layer 2: Passive scroll / touch listener as immediate backup
-    const onScroll = () => {
-      const currentRect = el.getBoundingClientRect();
-      const currentHeight = window.innerHeight || document.documentElement.clientHeight;
-      if (currentRect.top <= currentHeight + 80) {
-        clearTimeout(safetyTimer);
-        reveal();
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('touchmove', onScroll, { passive: true });
-
-    // Layer 3: Primary IntersectionObserver
     let observer = null;
     if (typeof IntersectionObserver !== 'undefined') {
       observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              clearTimeout(safetyTimer);
-              reveal();
+              el.classList.add('is-revealed');
+            } else {
+              // Fade out when scrolling away
+              el.classList.remove('is-revealed');
             }
           });
         },
@@ -98,13 +69,24 @@ export function useScrollReveal(options = {}) {
         }
       );
       observer.observe(el);
+    } else {
+      // Fallback if IntersectionObserver is unavailable
+      el.classList.add('is-revealed');
     }
+
+    // Safety fallback: if after 6 seconds something is still not revealed, reveal it so content is never lost
+    const safetyTimer = setTimeout(() => {
+      if (el && !el.classList.contains('is-revealed')) {
+        const currentRect = el.getBoundingClientRect();
+        if (currentRect.top < windowHeight && currentRect.bottom > 0) {
+          el.classList.add('is-revealed');
+        }
+      }
+    }, 6000);
 
     return () => {
       clearTimeout(safetyTimer);
       if (observer) observer.disconnect();
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('touchmove', onScroll);
     };
   }, [isStagger, threshold, rootMargin]);
 
